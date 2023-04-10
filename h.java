@@ -61,9 +61,9 @@ interface Database {
 }
 
 class PatientDatabase implements Database {
-   static List<Patient> L1 = new LinkedList<Patient>();
-   static List<String> passwordlist=new LinkedList<String>();
-   static List<String> emaillist=new LinkedList<String>();
+    static List<Patient> L1 = new LinkedList<Patient>();
+    static List<String> passwordlist = new LinkedList<String>();
+    static List<String> emaillist = new LinkedList<String>();
 
     String addToDatabase(Patient p) {
         L1.add(p);
@@ -96,16 +96,20 @@ class Hospital {
 
             switch (login_choise2) {
                 case 2: {
-                    System.out.println("DVsfssfg");
+                    Scanner scr = new Scanner(System.in);
+                    Scanner scrr = new Scanner(System.in);
+
                     System.out.println("Plese Give Your name");
-                    String pname = sc.nextLine();
+                    String pname = scr.nextLine();
+
                     System.out.println("Plese Give Your Age");
-                    int page = sc.nextInt();
+
+                    int page = scr.nextInt();
                     System.out.println("Plese Set Your Password");
-                    String Ppassword = sc.nextLine();
+                    String Ppassword = scrr.nextLine();
                     PatientDatabase.passwordlist.add(Ppassword);
                     System.out.println("Plese Set Your Email");
-                    String Pemail = sc.nextLine();
+                    String Pemail = scrr.nextLine();
                     PatientDatabase.emaillist.add(Pemail);
                     Patient p = new Patient();
                     p.setName(pname);
@@ -114,26 +118,91 @@ class Hospital {
                     p.setEmail(Pemail);
                     PatientDatabase pd = new PatientDatabase();
                     pd.addToDatabase(p);
-                    System.out.println("<--------------------------Plese Login Your Self----------------------------->");
+                    System.out
+                            .println("<--------------------------Plese Login Your Self----------------------------->");
 
                 }
-                case 1: {                   
+                case 1: {
+                    Scanner scr = new Scanner(System.in);
                     System.out.println("Plese Give Your Password");
-                    String Ppassword = sc.nextLine();
+                    String Ppassword = scr.nextLine();
                     System.out.println("Plese Give Your Email");
-                    String Pemail = sc.nextLine();
-                   if (PatientDatabase.passwordlist.contains(Ppassword)&&PatientDatabase.emaillist.contains(Pemail)) {
-                    System.out.println("Your are in login");
-                   } else {
-                    System.out.println("Error");
-                    
-                   }
+                    String Pemail = scr.nextLine();
+                    if (PatientDatabase.passwordlist.contains(Ppassword)
+                            && PatientDatabase.emaillist.contains(Pemail)) {
+                        System.out.println("Your are in the app ");
+                        System.out.println("Plese Choose an Options");
 
-                   
-                
+                        Boolean looping = true;
+                        while (looping) {
+                            System.out.println("1.Book Appoinment With  Doctor");
+                            System.out.println("2.Laboratory");
+                            System.out.println("3.Medicine");
+                            System.out.println("4.Exit");
+                            int patientOption = scr.nextInt();
+                            if (patientOption == 1) {
+
+                                System.out.println("Your Appoinment Time is 10:00 AM ");
+                                System.out.println("1.Previous Menu");
+                                System.out.println("2.Exit");
+                                int patientOption2 = scr.nextInt();
+                                if (patientOption2 == 1) {
+                                    looping = true;
+                                } else if (patientOption2 == 2) {
+                                    break;
+                                }
+                            } else if (patientOption == 2) {
+
+                                boolean labloop = true;
+                                while (labloop) {
+                                    System.out.println("1.Bood Test");
+                                    System.out.println("2.Full body Checkup");
+                                    System.out.println("3.Previous Menu");
+                                    int patientOption2 = scr.nextInt();
+
+                                    if (patientOption2 == 1) {
+                                        System.out.println("Your Amount of Bill is 500/-");
+                                        System.out.println("1.Previous Menu");
+                                        int lab = scr.nextInt();
+                                        if (lab == 1) {
+                                            break;
+                                        }
+                                    } else if (patientOption2 == 2) {
+                                        System.out.println("Your Amount of Bill is 1500/-");
+                                        System.out.println("1.Previous Menu");
+                                        int lab = scr.nextInt();
+                                        if (lab == 1) {
+                                            break;
+                                        }
+
+                                    } else if (patientOption2 == 3) {
+                                        break;
+                                    }
+                                }
+
+                            } else if (patientOption == 3) {
+                                System.out.println("Your MEdicine Bill is 150/-");
+                                System.out.println("1.Previous Menu");
+                                System.out.println("2.Exit");
+                                int patientOption2 = scr.nextInt();
+                                if (patientOption2 == 1) {
+                                    looping = true;
+                                } else if (patientOption2 == 2) {
+                                    break;
+                                }
+
+                            } else if (patientOption == 4) {
+                                break;
+                            }
+                        }
+
+                    } else {
+                        System.out.println("Error! Wrong Password or Email");
+
+                    }
+                    break;
+
                 }
-
-                
 
             }
 
@@ -159,8 +228,13 @@ class Hospital {
 
 public class h {
     public static void main(String[] args) {
-        Hospital h=new Hospital();
+        Hospital h = new Hospital();
         h.dips();
-        h.choise();
+        try {
+            h.choise();
+
+        } catch (Exception e) {
+            System.out.println("exception");
+        }
     }
 }
