@@ -45,11 +45,43 @@ class Patient {
 class Doctor {
     String name;
     int age;
+    String password;
+    String email;
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public int getAge() {
+        return age;
+    }
+    public void setAge(int age) {
+        this.age = age;
+    }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
 
 class Admin {
     String name;
     int age;
+    String password;
+    String email;
+
+    
+
+    
 }
 
 interface Database {
@@ -71,7 +103,17 @@ class PatientDatabase implements Database {
     }
 
 }
+class DoctorDatabase implements Database {
+    static List<Doctor> L2 = new LinkedList<Doctor>();
+    static List<String> passwordlist = new LinkedList<String>();
+    static List<String> emaillist = new LinkedList<String>();
 
+    String addToDatabase(Doctor p) {
+        L2.add(p);
+        return "You Are Succesfully Register Your self";
+    }
+
+}
 class Hospital {
     void dips() {
         System.out.println("Welcome to Hospital Have A good day");
@@ -85,6 +127,8 @@ class Hospital {
         System.out.println("2.Doctor");
         System.out.println("3.Admin");
         int login_choise = sc.nextInt();
+
+
 
         if (login_choise == 1) {
             System.out
@@ -211,6 +255,71 @@ class Hospital {
                     .println("IF you are New in this platform Kindly Register Your Self other wise Login Your self !");
             System.out.println("1.Login As Doctor");
             System.out.println("2.Register As Doctor");
+            int login_choise2 = sc.nextInt();
+
+            switch (login_choise2) {
+                case 2: {
+                    Scanner scr = new Scanner(System.in);
+                    Scanner scrr = new Scanner(System.in);
+
+                    System.out.println("Plese Give Your name");
+                    String dname = scr.nextLine();
+
+                    System.out.println("Plese Give Your Age");
+
+                    int dage = scr.nextInt();
+                    System.out.println("Plese Set Your Password");
+                    String dpassword = scrr.nextLine();
+                    PatientDatabase.passwordlist.add(dpassword);
+                    System.out.println("Plese Set Your Email");
+                    String demail = scrr.nextLine();
+                    PatientDatabase.emaillist.add(demail);
+                    Doctor d = new Doctor();
+                    d.setName(dname);
+                    d.setAge(dage);
+                    d.setPassword(dpassword);
+                    d.setEmail(demail);
+                    DoctorDatabase dd = new DoctorDatabase();
+                    dd.addToDatabase(d);
+                    System.out
+                            .println("<--------------------------Plese Login Your Self----------------------------->");
+
+                }
+                case 1: {
+                    Scanner scr = new Scanner(System.in);
+                    System.out.println("Plese Give Your Password");
+                    String dpassword = scr.nextLine();
+                    System.out.println("Plese Give Your Email");
+                    String demail = scr.nextLine();
+                    if (DoctorDatabase.passwordlist.contains(dpassword)
+                            && DoctorDatabase.emaillist.contains(demail)) {
+                        System.out.println("Your are in the app ");
+                        System.out.println("Plese Choose an Options");
+
+                        Boolean looping = true;
+                        while (looping) {
+                            System.out.println("1.View Appoinment");
+                            System.out.println("2.Exit");
+                           
+                            int patientOption = scr.nextInt();
+                            if (patientOption == 1) {
+
+                                System.out.println(PatientDatabase.L1);
+                            } else if (patientOption == 2) {
+                                break;
+                            }
+                        }
+
+                    } else {
+                        System.out.println("Error! Wrong Password or Email");
+
+                    }
+                    break;
+
+                }
+
+            }
+
 
         } else if (login_choise == 3) {
             System.out
@@ -224,6 +333,9 @@ class Hospital {
         }
 
     }
+
+
+    
 }
 
 public class h {
